@@ -26,6 +26,8 @@ on_project_start: |
   export CONFIG_DIR=${ANGEL_WORKSPACE_DIR}/config
   export NODE_CONFIG_DIR=${ANGEL_WORKSPACE_DIR}/src/angel_system_nodes/configs
   export MODEL_DIR=${ANGEL_WORKSPACE_DIR}/model_files
+  export PARAM_ROS_BAG_DIR=${ANGEL_WORKSPACE_DIR}/ros_bags/hmm_live_test/
+  export PARAM_ACTIVITY_GT_FILE="arb"
   if [ -z "${PARAM_ROS_BAG_DIR}" ]; then echo "MISSING: PARAM_ROS_BAG_DIR -> Set to path of ROS2 bag directory."; LOCAL_ERROR=1; fi
   if [ -z "${PARAM_ACTIVITY_GT_FILE}" ]; then echo "MISSING: PARAM_ACTIVITY_GT_FILE -> Set to path of activity GT feather file."; LOCAL_ERROR=1; fi
   if [ -n "${LOCAL_ERROR}" ]; then exit "${LOCAL_ERROR}"; fi
@@ -100,12 +102,12 @@ windows:
       -p model_checkpoint:=${MODEL_DIR}/uho_checkpoint_20221022.ckpt
       -p top_k:=10
       -p overlapping_mode:=False
-      -p gt_file:=${PARAM_ACTIVITY_GT_FILE}
+      #-p gt_file:=${PARAM_ACTIVITY_GT_FILE}
 
   - task_monitor: ros2 run angel_system_nodes task_monitor_v2 --ros-args
       -r __ns:=${ROS_NAMESPACE}
       -p det_topic:=ActivityDetections
-      -p config_file:=${CONFIG_DIR}/tasks/task_steps_config-recipe_coffee.yaml
+      -p config_file:=${CONFIG_DIR}/tasks/task_steps_config-recipe_coffee_trimmed.yaml
       -p task_state_topic:=TaskUpdates
       -p task_error_topic:=TaskErrors
       -p query_task_graph_topic:=query_task_graph

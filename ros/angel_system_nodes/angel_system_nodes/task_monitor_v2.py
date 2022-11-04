@@ -360,7 +360,7 @@ class HMMNode(Node):
                     # Force steps beyond the current to not be considered
                     # finished (haven't happened yet). hmm_step_id includes
                     # addressing background, so `hmm_step_id == user_step_id+1`
-                    steps_complete[user_step_id+1:] = False
+                    #steps_complete[user_step_id+1:] = False
 
                     # Only change steps if we have a new step, and it is not
                     # background (ID=0).
